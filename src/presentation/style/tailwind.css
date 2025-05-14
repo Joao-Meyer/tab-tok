@@ -50,11 +50,11 @@
 
 html,
 body {
+  background-color: #151519;
   touch-action: manipulation;
 }
 
 html {
-  background-color: #ffffff;
   color: #151519;
 }
 

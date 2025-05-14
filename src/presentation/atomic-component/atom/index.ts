@@ -12,6 +12,7 @@ export * from './toggle-theme';
 export * from './number-metric';
 export * from './validate-password';
 export * from './page-header';
+export * from './install-pwa-button';
 export * from './table';
 export * from './fetch-on-scroll';
 export * from './mask-input';

@@ -25,7 +25,7 @@ export default defineConfig({
         ],
         name: 'TabTok',
         short_name: 'TabTok',
-        start_url: '/painel',
+        start_url: '/',
         theme_color: '#151519'
       },
       registerType: 'autoUpdate',

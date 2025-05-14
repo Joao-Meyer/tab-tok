@@ -1,13 +1,13 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 
 export enum routePaths {
-  login = '/',
-  home = '/home'
+  login = '/login',
+  home = '/'
 }
 
 export const paths = {
-  login: '/',
-  home: '/home'
+  login: '/login',
+  home: '/'
 };
 
 export const apiPaths = {

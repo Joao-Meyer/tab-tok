@@ -1,8 +1,6 @@
-import { AuthContent, HomeContent } from 'presentation/environment';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { MainTemplate, PublicTemplate } from 'presentation/atomic-component/template';
-import { PrivateRoute, PublicRoute } from 'main/proxies';
+import { HomeContent } from 'presentation/environment';
 import { Suspense } from 'react';
 import { routePaths } from 'main/config';
 import type { FC } from 'react';
@@ -11,24 +9,26 @@ const RouterConfig: FC = () => (
   <BrowserRouter>
     <Suspense fallback={<Outlet />}>
       <Routes>
+        <Route element={<HomeContent />} path={routePaths.home} />
+
         {/* Public routes */}
-        <Route element={<PublicRoute />}>
+        {/* <Route element={<PublicRoute />}>
           <Route element={<PublicTemplate />}>
             <Route element={<AuthContent />} path={routePaths.login} />
           </Route>
-        </Route>
+        </Route> */}
 
         {/* Restaurant Private routes */}
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />}>
           <Route element={<MainTemplate />}>
             <Route element={<HomeContent />} path={routePaths.home} />
           </Route>
-        </Route>
+        </Route> */}
 
         <Route>
           <Route
             element={
-              <div className={'flex flex-col gap-2 items-center justify-center w-full h-screen'}>
+              <div className={'flex gap-2 items-center justify-center w-full h-screen'}>
                 Not Found <Button onClick={(): void => window.history.back()}>go back</Button>
               </div>
             }
