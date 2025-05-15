@@ -1,18 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpStatusCode } from 'domain/enums';
 import { removeUndefined } from 'main/utils';
-import { store } from 'store';
 import type { ApiProps } from 'domain/protocol';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
 export const fetchApi = async <T>(params: ApiProps): Promise<T> => {
-  const accessToken = params.token || store.getState().persist.accessToken;
-
   const body: any = params.isFormData ? params.body : JSON.stringify(params.body);
   const headers = {};
-
-  if (accessToken) Object.assign(headers, { Authorization: `Bearer ${accessToken}` });
 
   if (!params.isFormData)
     Object.assign(headers, { 'Content-Type': 'application/json;charset=UTF-8' });

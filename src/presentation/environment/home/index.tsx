@@ -20,7 +20,7 @@ export const HomeContent: FC = () => {
     },
     limit: 10,
     queryName: QueryName.default,
-    route: apiPaths.content
+    route: `${apiPaths.content}/NewsletterOficial`
   });
 
   useEffect(() => {
@@ -78,17 +78,18 @@ export const HomeContent: FC = () => {
         </div>
       </div>
 
-      {data?.map((item) => (
-        <img
-          key={item.id}
-          alt={'test 1'}
-          className={
-            'h-full max-w-[800px] mx-auto snap-start flex items-center justify-center w-full object-cover'
-          }
-          draggable={false}
-          src={thumbnail(item.owner_username, item.slug)}
-        />
-      ))}
+      {data?.map((item) => {
+        return (
+          <div
+            key={item.id}
+            className={
+              'h-full max-w-[800px] mx-auto snap-start flex items-center justify-center w-full object-cover'
+            }
+          >
+            <img alt={item.owner_username} src={thumbnail(item.owner_username, item.slug)} />
+          </div>
+        );
+      })}
 
       <div className={'absolute bottom-0 right-0'}>
         <InstallPWAButton />
