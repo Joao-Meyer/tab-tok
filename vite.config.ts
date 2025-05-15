@@ -2,6 +2,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react-swc';
+import vercel from 'vite-plugin-vercel';
 
 export default defineConfig({
   build: {
@@ -9,6 +10,7 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    vercel(),
     VitePWA({
       devOptions: {
         enabled: true
