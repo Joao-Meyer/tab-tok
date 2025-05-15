@@ -13,5 +13,7 @@ export const paths = {
 export const apiPaths = {
   default: '/default',
   login: '/login',
+  content: '/contents',
+  oneContent: (user: string, slug: string): string => `/contents/${user}/${slug}`,
   user: '/user'
 };

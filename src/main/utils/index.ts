@@ -12,6 +12,7 @@ export * from './validate';
 export * from './share-email';
 export * from './print-html';
 export * from './format-share-data';
+export * from './thumbnail';
 export * from './format-text';
 export * from './random';
 export * from './update-hash';

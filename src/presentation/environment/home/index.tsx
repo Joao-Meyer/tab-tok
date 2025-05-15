@@ -1,20 +1,27 @@
 import { ExpandLess } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { InstallPWAButton } from 'presentation/atomic-component/atom';
+import { QueryName, apiPaths } from 'main/config';
+import { thumbnail } from 'main/utils';
 import { useEffect, useRef, useState } from 'react';
+import { useInfiniteScroll } from 'data/hooks';
+import type { Content } from 'domain/models';
 import type { FC } from 'react';
-
-const images = ['/icon.png', '/icon.png', '/icon.png'];
 
 export const HomeContent: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [isAtTop, setIsAtTop] = useState(true);
 
-  // 1 2835
-  // 2 945
-  // 3 1890
-  // 4 945
+  const { data, ...queryData } = useInfiniteScroll<Content>({
+    filters: {
+      per_page: 10,
+      strategy: 'new'
+    },
+    limit: 10,
+    queryName: QueryName.default,
+    route: apiPaths.content
+  });
 
   useEffect(() => {
     const handleScroll = (): void => {
@@ -24,14 +31,12 @@ export const HomeContent: FC = () => {
 
       setIsAtTop(element?.scrollTop === 0);
 
-      console.log('1', element.scrollHeight);
-      console.log('2', element.scrollTop);
-      console.log('3', element.scrollHeight - element.scrollTop);
-      console.log('4', element.clientHeight);
+      const isEndPage = element.scrollHeight - element.scrollTop === element.clientHeight;
+      const isUpEndPage = element.scrollHeight - element.scrollTop === element.clientHeight * 2;
 
-      const isAtBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
+      const isAtBottom = isEndPage || isUpEndPage;
 
-      if (isAtBottom) console.log('aaaaaaaaaaa');
+      if (isAtBottom) queryData.fetchNextPage();
     };
 
     containerRef.current?.addEventListener('scroll', handleScroll);
@@ -73,15 +78,15 @@ export const HomeContent: FC = () => {
         </div>
       </div>
 
-      {images.map((image) => (
+      {data?.map((item) => (
         <img
-          key={image}
+          key={item.id}
           alt={'test 1'}
           className={
             'h-full max-w-[800px] mx-auto snap-start flex items-center justify-center w-full object-cover'
           }
           draggable={false}
-          src={image}
+          src={thumbnail(item.owner_username, item.slug)}
         />
       ))}
 

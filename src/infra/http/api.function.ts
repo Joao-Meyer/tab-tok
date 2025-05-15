@@ -30,6 +30,18 @@ export const fetchApi = async <T>(params: ApiProps): Promise<T> => {
     method: params.method
   });
 
+  const { page, limit } = params.queryParams as { page?: number; limit?: number };
+
+  if (typeof page === 'number' && typeof limit === 'number') {
+    const content = await response.json();
+
+    let totalPages = page;
+
+    if (content?.length > 0) totalPages += 1;
+
+    return { content, totalElements: 999999, totalPages } as T;
+  }
+
   // if ((response.status as unknown as HttpStatusCode) === HttpStatusCode.unauthorized) {
   //   window.history.back();
   //   return null as T;
